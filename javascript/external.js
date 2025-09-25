@@ -1,50 +1,54 @@
-// username prompt
-const user_name = window.prompt("Please enter your name", "Type your name here");
-document.getElementById("user-header").innerHTML = "Hello, welcome " + user_name + "!";
+// External JavaScript for Lab 3
+// Abigail Etzler-Pennell
 
-// Output examples
-window.alert(5 + 6);             // Alert with calculation
-window.alert('5 + 6');           // Alert with string
+// Comment: Task 1 - Embed JS
+/*
+document.write("Where is my JS code?");
+*/
+
+// Comment: Task 2 - Output
+/*
+window.alert(5 + 6);
+window.alert('5 + 6');
 document.write('<h1>A heading</h1>');
 document.write('<p>A sentence.</p>');
+*/
 
-// Variables
-const x = "web";
-const y = "mapping";
-const out = x + y;
-document.write("<p>" + out + "</p>");
+// Comment: Task 3 - Variables
+// Prompt the user to enter their name
+user_name = window.prompt("Please enter your name", "Type your name here");
 
-// Operators
-let a = 22;
+// Display the user's name
+document.write(user_name);
+
+// Comment: Task 4 - Operators
+/*
+a = 22;
 const b = 33;
 document.writeln(a + b);
 document.writeln("<br>");
 document.writeln(a += b);
 document.writeln("<br>");
 document.writeln(a += b);
+*/
 
-// Conditional Statement
+// Comment: Task 5 - Conditional Statement
+/*
 document.writeln("<button onclick='condition()'>Conditional Test</button>");
 function condition() {
-  const x = confirm("Are you sure you want to proceed?");
-  if(x) {
-    document.writeln("You chose Okay!");
-  } else {
-    document.writeln("You chose Cancel!");
-  }
+    x = confirm("Are you sure you want to proceed?");
+    if(x) {
+        document.writeln("You chose Okay!");
+    } else {
+        document.writeln("You chose Cancel!");
+    }
 }
+*/
 
-// Array
-const arr = ["Mael","Eric","Randall","James"];
-for (let i = 0; i < arr.length; i++) {
-  document.writeln(arr[i], "<br>");
+//Comment: Task 6 - Array
+/*
+arr = ["Mael","Eric","Randall","James"];
+for (var i=0; i < arr.length; i++) {
+    document.writeln(arr[i], "<br>");
 }
-
-// Homework Task?: Copyright Footer
-const today = new Date();
-const year = today.getFullYear();
-document.getElementById("copyright").innerHTML =
-  "Copyright &copy; " + year;
-
-// Task 1: Example external JS test (Optional?)
-document.write("<p>Where is my JS code?</p>");
+*/
