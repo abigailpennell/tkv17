@@ -81,6 +81,47 @@ body {
 }
 
 /* ==============================
+   Webmap Reviews (Lab 4 Task 3)
+   ============================== */
+#webmap-reviews {
+    text-align: left;
+    font-size: 25px;
+    position: relative;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#webmap-reviews h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+/* Style the table inside webmap reviews */
+#webmap-reviews table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#webmap-reviews td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+}
+
+#webmap-reviews a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+#webmap-reviews a:hover {
+    text-decoration: underline;
+}
+
+/* ==============================
    Conditional Button (Task 5)
    ============================== */
 button {
