@@ -76,45 +76,96 @@ var poly = L.polygon([
 mymap.fitBounds(poly.getBounds());
 }).addTo(mymap);
   <script>
-  <div id="mapid" style="width: 600px; height: 400px; margin: auto; bottom: 30px;">
+  <div id="mapid" style="width: 800px; height: 500px; margin: auto; bottom: 30px;">
     <script>
-      // your new Seven Wonders map code goes here
-      <div id="mapid" style="width: 600px; height: 400px; margin: auto; bottom: 30px;">
-        <script>
-          // Initialize the map, centered globally
-          var mymap = L.map('mapid').setView([20, 0], 2);
+      // Initialize the map centered globally
+      var mymap = L.map('mapid').setView([20, 0], 2);
 
-          // Choose your favorite base map
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(mymap);
+      // Choose your favorite base map
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(mymap);
 
-          // Taj Mahal (India)
-          var tajMahal = L.marker([27.174961, 78.042385]).addTo(mymap);
-          tajMahal.bindPopup("<b>Taj Mahal</b><br><img src='images/tajmahal.jpg' width='150'><br>The Taj Mahal in India was built by Emperor Shah Jahan in memory of his wife Mumtaz Mahal.");
+      // Create custom color icons (different marker for each Wonder)
+      var redIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
 
-          // Great Wall of China
-          var greatWall = L.marker([40.334245, 116.477652]).addTo(mymap);
-          greatWall.bindPopup("<b>Great Wall of China</b><br><img src='images/greatwall.jpg' width='150'><br>Series of fortifications built across northern China to protect against invasions.");
+      var blueIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
 
-          // Petra (Jordan)
-          var petra = L.marker([30.328611, 35.441944]).addTo(mymap);
-          petra.bindPopup("<b>Petra</b><br><img src='images/petra.jpg' width='150'><br>Ancient city carved into rose-colored rock, once a major trading hub in Jordan.");
+      var greenIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/green-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
 
-          // Christ the Redeemer (Brazil)
-          var christ = L.marker([-22.951389, -43.2108334]).addTo(mymap);
-          christ.bindPopup("<b>Christ the Redeemer</b><br><img src='images/christ.jpg' width='150'><br>The iconic statue of Jesus overlooking Rio de Janeiro, Brazil.");
+      var yellowIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
 
-          // Machu Picchu (Peru)
-          var machuPicchu = L.marker([-13.163056, -72.545556]).addTo(mymap);
-          machuPicchu.bindPopup("<b>Machu Picchu</b><br><img src='images/machu.jpg' width='150'><br>Ancient Incan citadel set high in the Andes Mountains of Peru.");
+      var purpleIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/purple-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
 
-          // Chichen Itza (Mexico)
-          var chichenItza = L.marker([20.682778, -88.569167]).addTo(mymap);
-          chichenItza.bindPopup("<b>Chichen Itza</b><br><img src='images/chichen.jpg' width='150'><br>A large pre-Columbian archaeological site built by the Maya civilization in Mexico.");
+      var orangeIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/orange-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
 
-          // The Colosseum (Rome)
-          var colosseum = L.marker([41.890169, 12.492269]).addTo(mymap);
-          colosseum.bindPopup("<b>The Colosseum</b><br><img src='images/colosseum.jpg' width='150'><br>Ancient Roman amphitheatre in the center of Rome, Italy.");
-        </script>
+      var pinkIcon = new L.Icon({
+        iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/pink-dot.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -28]
+      });
+
+      // --- Seven Wonders ---
+
+      // 1. Taj Mahal (India)
+      var tajMahal = L.marker([27.174961, 78.042385], {icon: redIcon}).addTo(mymap);
+      tajMahal.bindPopup("<div class='popup'><b>Taj Mahal</b><br><img src='images/tajmahal.jpg' width='150'><br>The Taj Mahal, built by Emperor Shah Jahan in the 1600s, is a symbol of eternal love and one of the most exquisite examples of Mughal architecture.</div>");
+
+      // 2. Great Wall of China
+      var greatWall = L.marker([40.334245, 116.477652], {icon: blueIcon}).addTo(mymap);
+      greatWall.bindPopup("<div class='popup'><b>Great Wall of China</b><br><img src='images/greatwall.jpg' width='150'><br>Stretching over 13,000 miles, the Great Wall was constructed to protect China from invasions and remains a monumental feat of human engineering.</div>");
+
+      // 3. Petra (Jordan)
+      var petra = L.marker([30.328611, 35.441944], {icon: greenIcon}).addTo(mymap);
+      petra.bindPopup("<div class='popup'><b>Petra</b><br><img src='images/petra.jpg' width='150'><br>Carved into rose-colored rock cliffs, Petra was once a thriving trade hub and is famous for its stunning Treasury and hidden tombs.</div>");
+
+      // 4. Christ the Redeemer (Brazil)
+      var christ = L.marker([-22.951389, -43.2108334], {icon: yellowIcon}).addTo(mymap);
+      christ.bindPopup("<div class='popup'><b>Christ the Redeemer</b><br><img src='images/christ.jpg' width='150'><br>Standing 98 feet tall, Christ the Redeemer overlooks Rio de Janeiro as a symbol of peace and faith in Brazil.</div>");
+
+      // 5. Machu Picchu (Peru)
+      var machuPicchu = L.marker([-13.163056, -72.545556], {icon: purpleIcon}).addTo(mymap);
+      machuPicchu.bindPopup("<div class='popup'><b>Machu Picchu</b><br><img src='images/machu.jpg' width='150'><br>Perched high in the Andes Mountains, Machu Picchu is an Incan citadel shrouded in mystery and natural beauty.</div>");
+
+      // 6. Chichen Itza (Mexico)
+      var chichenItza = L.marker([20.682778, -88.569167], {icon: orangeIcon}).addTo(mymap);
+      chichenItza.bindPopup("<div class='popup'><b>Chichen Itza</b><br><img src='images/chichen.jpg' width='150'><br>This ancient Mayan city in Mexico features the Temple of Kukulcán, a pyramid aligned with astronomical precision.</div>");
+
+      // 7. Colosseum (Italy)
+      var colosseum = L.marker([41.890169, 12.492269], {icon: pinkIcon}).addTo(mymap);
+      colosseum.bindPopup("<div class='popup'><b>The Colosseum</b><br><img src='images/colosseum.jpg' width='150'><br>The grand amphitheatre of ancient Rome, where gladiators once battled before tens of thousands of spectators.</div>");
+    </script>
+  </div>
+  </script>
       </div>
 
     </script>
