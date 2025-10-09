@@ -9,6 +9,10 @@ integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="">
 NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css">
 <script src="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js"></script>
+<script src="https://unpkg.com/leaflet-control-
+geocoder/dist/Control.Geocoder.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-
+geocoder/dist/Control.Geocoder.css" />
 <script src="javascript/secret_keys.js"></script>
 <head>
   <title>Abigail Etzler-Pennell</title>
@@ -58,6 +62,19 @@ NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
 <br>
 <div id="mapid" style="width: 600px; height: 400px; margin: auto; bottom: 30px;">
   var mymap = L.map('mapid');
+  var geocoder = L.Control.geocoder({
+defaultMarkGeocode: false,
+geocoder: new L.Control.Geocoder.Nominatim()
+}).on('markgeocode', function(e) {
+var bbox = e.geocode.bbox;
+var poly = L.polygon([
+    bbox.getSouthEast(),
+    bbox.getNorthEast(),
+    bbox.getNorthWest(),
+    bbox.getSouthWest()
+]);
+mymap.fitBounds(poly.getBounds());
+}).addTo(mymap);
   <script>
     var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
