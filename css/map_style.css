@@ -3,3 +3,16 @@
 {
 background: yellow;
 }
+
+.popup {
+  background-color: #fff8dc;
+  padding: 5px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.popup img {
+  border-radius: 6px;
+  margin-top: 5px;
+}
