@@ -51,6 +51,16 @@ NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
         <script>
         document.write(webmap_table());
         </script>
+        <h3>Geocoding Map</h3>
+<br>
+<div id="mapid" style="width: 600px; height: 400px; margin: auto; bottom: 30px;">
+<script>
+var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?access_token={accessTo
+ken}', {maxZoom: 18, id: 'mapbox.mapbox-traffic-v1', accessToken:
+mapbox_access_token}).addTo(mymap);
+</script>
+</div>
       </p>
     </div>
     <!-- Link to external JavaScript -->  <!-- footer -->
