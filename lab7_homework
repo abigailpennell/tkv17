@@ -5,7 +5,7 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lab 7 Homework</title>
 
-  // CSS styling 
+  // CSS styling
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -40,14 +40,14 @@
   <p>Select a map to open it in a new tab:</p>
 
   <select id="mapSelect" onchange="openMap()">
-    <option value="">-- Choose a map --</option>
-    <option value="simple_mapping.html">Simple Mapping</option>
-    <option value="tile_layer.html">Tile Layers</option>
-    <option value="dynamic_layers.html">Dynamic Layers</option>
-    <option value="on_event.html">On Event</option>
-    <option value="basemap_gallery.html">Basemap Gallery</option>
-    <option value="query_task.html">Query Task</option>
-  </select>
+  <option value="">-- Choose a map --</option>
+  <option value="https://abigailpennell.github.io/tkv17/simple_mapping.html">Simple Mapping</option>
+  <option value="https://abigailpennell.github.io/tkv17/tile_layer.html">Tile Layers</option>
+  <option value="https://abigailpennell.github.io/tkv17/dynamic_layers.html">Dynamic Layers</option>
+  <option value="https://abigailpennell.github.io/tkv17/on_event.html">On Event</option>
+  <option value="https://abigailpennell.github.io/tkv17/basemap_gallery.html">Basemap Gallery</option>
+  <option value="https://abigailpennell.github.io/tkv17/query_task.html">Query Task</option>
+</select>
 
   //JavaScript function that makes the dropdown work
   <script>
