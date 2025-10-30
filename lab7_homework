@@ -5,6 +5,7 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Lab 7 Homework</title>
 
+  // CSS styling 
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,3 +33,36 @@
     }
   </style>
 </head>
+
+// This is where your visible page content starts
+<body>
+  <h1>Lab 7 Homework – ArcGIS JavaScript API</h1>
+  <p>Select a map to open it in a new tab:</p>
+
+  <select id="mapSelect" onchange="openMap()">
+    <option value="">-- Choose a map --</option>
+    <option value="simple_mapping.html">Simple Mapping</option>
+    <option value="tile_layer.html">Tile Layers</option>
+    <option value="dynamic_layers.html">Dynamic Layers</option>
+    <option value="on_event.html">On Event</option>
+    <option value="basemap_gallery.html">Basemap Gallery</option>
+    <option value="query_task.html">Query Task</option>
+  </select>
+
+  //JavaScript function that makes the dropdown work
+  <script>
+    function openMap() {
+      const select = document.getElementById("mapSelect");
+      const selectedValue = select.value;
+
+      if (selectedValue) {
+        window.open(selectedValue, "_blank");
+      }
+    }
+  </script>
+
+  <footer>
+    &copy; 2025 Your Name – Texas State University GEO 4422/5408
+  </footer>
+</body>
+</html>
