@@ -66,7 +66,6 @@
         center: [-118.2095, 34.0866]
       });
 
-      // ✳️ Add BasemapGallery widget
       var basemapGallery = new BasemapGallery({
         view: view
       });
@@ -74,7 +73,7 @@
       // Add it to the top-right corner
       view.ui.add(basemapGallery, { position: "top-right" });
 
-      // Optional: keep the click event if you want to see interaction
+
       view.on("click", function() {
         console.log("Map clicked!");
       });
