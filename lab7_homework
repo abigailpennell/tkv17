@@ -1,68 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Lab 7 Homework</title>
+  <title>Lab 7 Homework – NPS Trails & Boundaries</title>
 
-  // CSS styling
+  <!-- ArcGIS JS API CSS for light/clean theme -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
+  <!-- ArcGIS JS API script -->
+  <script src="https://js.arcgis.com/4.27/"></script>
+
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
+    }
+
+    #viewDiv {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Original dropdown (open other maps) */
+    #mapOpenControls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      border-radius: 4px;
+      z-index: 10;
+      text-align: left;
+    }
+
+    /* NPS Map query controls */
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      border-radius: 4px;
+      z-index: 10;
+      text-align: left;
+    }
+
+    select, button {
+      font-size: 14px;
+      padding: 5px;
+      margin-top: 5px;
+      width: 180px;
+    }
+
+    h1, h3 {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    #footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.8);
       text-align: center;
-      padding-top: 80px;
-    }
-
-    select {
-      font-size: 16px;
-      padding: 8px;
-      margin-top: 10px;
-    }
-
-    h1 {
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    footer {
-      margin-top: 50px;
+      padding: 5px;
       font-size: 12px;
-      color: #555;
+      z-index: 10;
     }
   </style>
 </head>
 
-// This is where your visible page content starts
 <body>
-  <h1>Lab 7 Homework – ArcGIS JavaScript API</h1>
-  <p>Select a map to open it in a new tab:</p>
+  <!-- Original map select dropdown -->
+  <div id="mapOpenControls">
+    <h3>Open Other Maps</h3>
+    <label for="mapSelect">Choose a map:</label>
+    <select id="mapSelect" onchange="openMap()">
+      <option value="">-- Choose a map --</option>
+      <option value="https://abigailpennell.github.io/tkv17/simple_mapping.html">Simple Mapping</option>
+      <option value="https://abigailpennell.github.io/tkv17/tile_layer.html">Tile Layers</option>
+      <option value="https://abigailpennell.github.io/tkv17/dynamic_layers.html">Dynamic Layers</option>
+      <option value="https://abigailpennell.github.io/tkv17/on_event.html">On Event</option>
+      <option value="https://abigailpennell.github.io/tkv17/basemap_gallery.html">Basemap Gallery</option>
+      <option value="https://abigailpennell.github.io/tkv17/query_task.html">Query Task</option>
+    </select>
+  </div>
 
-  <select id="mapSelect" onchange="openMap()">
-  <option value="">-- Choose a map --</option>
-  <option value="https://abigailpennell.github.io/tkv17/simple_mapping.html">Simple Mapping</option>
-  <option value="https://abigailpennell.github.io/tkv17/tile_layer.html">Tile Layers</option>
-  <option value="https://abigailpennell.github.io/tkv17/dynamic_layers.html">Dynamic Layers</option>
-  <option value="https://abigailpennell.github.io/tkv17/on_event.html">On Event</option>
-  <option value="https://abigailpennell.github.io/tkv17/basemap_gallery.html">Basemap Gallery</option>
-  <option value="https://abigailpennell.github.io/tkv17/query_task.html">Query Task</option>
-</select>
+  <!-- NPS Map query controls -->
+  <div id="controls">
+    <h1>NPS Trails & Boundaries Map</h1>
+    <label for="layerSelect">Choose Layer:</label>
+    <select id="layerSelect">
+      <option value="0">Trails</option>
+      <option value="1">Boundaries</option>
+    </select>
+    <br />
+    <label for="parkSelect">Choose Park:</label>
+    <select id="parkSelect">
+      <option value="">--Select Park--</option>
+      <option value="Yellowstone">Yellowstone</option>
+      <option value="Grand Canyon">Grand Canyon</option>
+      <option value="Yosemite">Yosemite</option>
+      <option value="Zion">Zion</option>
+      <option value="Glacier">Glacier</option>
+    </select>
+    <br />
+    <button id="queryBtn">Go</button>
+  </div>
 
-  //JavaScript function that makes the dropdown work
+  <!-- Map container -->
+  <div id="viewDiv"></div>
+
+  <!-- Footer -->
+  <div id="footer">
+    &copy; 2025 National Park Service &copy; Abigail E. – Texas State University GEO 4422/5408
+  </div>
+
+  <!-- Original dropdown script -->
   <script>
     function openMap() {
       const select = document.getElementById("mapSelect");
       const selectedValue = select.value;
-
       if (selectedValue) {
         window.open(selectedValue, "_blank");
       }
     }
   </script>
 
-  <footer>
-    &copy; 2025 Your Name – Texas State University GEO 4422/5408
-  </footer>
+  <!-- ArcGIS map script -->
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Legend",
+      "esri/widgets/Expand"
+    ], function(Map, MapView, FeatureLayer, Legend, Expand) {
+
+      // NPS Trails & Boundaries FeatureServer URL
+      const serviceUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/NPS_Trails_and_Boundaries/FeatureServer";
+
+      // Create Trails layer (layer 0)
+      const trailsLayer = new FeatureLayer({
+        url: serviceUrl + "/0",
+        outFields: ["*"]
+      });
+
+      // Create Boundaries layer (layer 1)
+      const boundariesLayer = new FeatureLayer({
+        url: serviceUrl + "/1",
+        outFields: ["*"]
+      });
+      boundariesLayer.visible = false; // hide boundaries initially
+
+      // Create Map
+      const map = new Map({
+        basemap: "topo-vector",
+        layers: [trailsLayer, boundariesLayer]
+      });
+
+      // Create MapView
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-100, 40], // center on US
+        scale: 5000000
+      });
+
+      // Add Legend widget inside Expand
+      const legend = new Legend({
+        view: view,
+        layerInfos: [
+          { layer: trailsLayer, title: "Trails" },
+          { layer: boundariesLayer, title: "Boundaries" }
+        ]
+      });
+
+      const legendExpand = new Expand({
+        view: view,
+        content: legend,
+        expanded: false
+      });
+
+      view.ui.add(legendExpand, "top-right");
+
+      // Query functionality
+      const layerSelect = document.getElementById("layerSelect");
+      const parkSelect = document.getElementById("parkSelect");
+      const queryBtn = document.getElementById("queryBtn");
+
+      queryBtn.addEventListener("click", function() {
+        const layerId = layerSelect.value;
+        const parkName = parkSelect.value;
+        let layer = (layerId === "0") ? trailsLayer : boundariesLayer;
+
+        // Show selected layer, hide the other
+        trailsLayer.visible = (layerId === "0");
+        boundariesLayer.visible = (layerId === "1");
+
+        // Build query
+        const query = layer.createQuery();
+        query.where = parkName ? `UNITNAME = '${parkName}'` : "1=1";
+        query.outFields = ["*"];
+        query.returnGeometry = true;
+
+        layer.queryFeatures(query).then(function(result) {
+          if (result.features.length > 0) {
+            view.goTo({ target: result.features, zoom: 8 });
+          } else {
+            alert("No features found for that selection.");
+          }
+        });
+      });
+
+    });
+  </script>
 </body>
 </html>
